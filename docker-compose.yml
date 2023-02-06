@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  general-api-db-DEV:
+    container_name: general-api-db-DEV
+    image: postgres
+    environment:
+      POSTGRES_DB: general-api
+      POSTGRES_USER: user-general-api
+      POSTGRES_PASSWORD: pass-general-api
+      PGPORT: 15000
+    restart: always
+    ports:
+      - "15000:15000"
+    networks:
+        - default
+  general-api-pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "16000:80"
+    networks:
+      - default
+networks:
+    default:
+        driver: overlay
+        name: general-api-network
+        external: true
